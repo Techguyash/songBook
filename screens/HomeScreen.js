@@ -1,11 +1,25 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 import SongList from "../components/SongList";
+import Colors from "../constants/Colors";
+import Songs from "../data/Data";
 
-const HomeScreen = () => {
+const HomeScreen = ({}) => {
   return (
     <View style={styles.homeContainer}>
-      <Text>HomeScreen</Text>
-      <SongList />
+      <FlatList
+        data={Songs}
+        renderItem={(song) => {
+          return (
+            <SongList
+              title={song.item.title}
+              number={song.item.number}
+              lyrics={song.item.lyrics}
+              favourite={true}
+            />
+          );
+        }}
+        keyExtractor={(song) => song.number}
+      />
     </View>
   );
 };
@@ -13,6 +27,7 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   homeContainer: {
     flex: 1,
+    backgroundColor: Colors.background,
   },
 });
 
