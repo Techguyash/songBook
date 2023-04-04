@@ -1,14 +1,14 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import React, { useContext, useLayoutEffect, useState } from "react";
+import { AppContext } from "../store/AppContext";
+import SongList from "../components/SongList";
 
 const MyFavouriteScreen = () => {
+  const { favouriteSongList, allSongList } = useContext(AppContext);
+
   return (
-    <View>
-      <Text>MyFavouriteScreen</Text>
-    </View>
+    <>{favouriteSongList.length < 1 ? <Text>No Favourites here</Text> : null}</>
   );
 };
 
 export default MyFavouriteScreen;
-
-const styles = StyleSheet.create({});

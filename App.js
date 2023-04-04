@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { Image, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -12,6 +12,7 @@ import HomeScreen from "./screens/HomeScreen";
 import NotificationScreen from "./screens/NotificationScreen";
 import UserScreen from "./screens/UserScreen";
 import MyFavouriteScreen from "./screens/MyFavouriteScreen";
+import AppCtxProvider from "./store/AppContext";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -24,6 +25,7 @@ function BottomNavigation() {
         headerTintColor: Colors.accentBackground,
         tabBarStyle: { backgroundColor: Colors.accentBackground },
         tabBarActiveTintColor: Colors.white,
+
         tabBarShowLabel: false,
       }}
     >
@@ -79,7 +81,7 @@ function BottomNavigation() {
         options={{
           title: "",
           tabBarIcon: ({ color, size, focused }) => (
-            <Ionicons name="menu" size={24} color={color} />
+            <Ionicons name="ios-settings-outline" size={24} color={color} />
           ),
           lazy: "true",
         }}
@@ -90,27 +92,29 @@ function BottomNavigation() {
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            contentStyle: { backgroundColor: Colors.background },
-          }}
-        >
-          <Stack.Screen
-            name="bottomNav"
-            component={BottomNavigation}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="songOutput"
-            component={SongOutput}
-            options={{ headerStyle: { backgroundColor: Colors.background } }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </View>
+    <AppCtxProvider>
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              contentStyle: { backgroundColor: Colors.background },
+            }}
+          >
+            <Stack.Screen
+              name="bottomNav"
+              component={BottomNavigation}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="songOutput"
+              component={SongOutput}
+              options={{ headerStyle: { backgroundColor: Colors.background } }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </View>
+    </AppCtxProvider>
   );
 }
 
@@ -118,7 +122,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // marginTop: Platform.OS === "android" ? 30 : 0,
-    padding: 2,
+
     backgroundColor: Colors.background,
   },
 });

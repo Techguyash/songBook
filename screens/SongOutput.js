@@ -14,7 +14,10 @@ function SongOutput({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.contentArea}>
+      <ScrollView
+        showsVerticalScrollIndicator={true}
+        style={styles.contentArea}
+      >
         <Text style={styles.textContent}>{lyrics}</Text>
       </ScrollView>
     </View>
@@ -35,7 +38,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   textContent: {
-    fontSize: 17,
+    fontSize: 15,
     marginVertical: 5,
     textAlign: "center",
   },

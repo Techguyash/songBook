@@ -1,20 +1,24 @@
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { useContext, useEffect, useState } from "react";
+import { View, StyleSheet, FlatList } from "react-native";
 import SongList from "../components/SongList";
 import Colors from "../constants/Colors";
-import Songs from "../data/Data";
+import { AppContext } from "../store/AppContext";
 
-const HomeScreen = ({}) => {
+const HomeScreen = () => {
+  
+  const { allSongList } = useContext(AppContext);
+
   return (
     <View style={styles.homeContainer}>
       <FlatList
-        data={Songs}
+        data={allSongList}
         renderItem={(song) => {
           return (
             <SongList
               title={song.item.title}
               number={song.item.number}
               lyrics={song.item.lyrics}
-              favourite={true}
+              favourite={song.item.favourite}
             />
           );
         }}
