@@ -5,8 +5,6 @@ import { useNavigation } from "@react-navigation/native";
 import Colors from "../constants/Colors";
 import FavIcon from "../UI/FavIcon";
 import RoundedContainer from "../UI/RoundedContainer";
-import { useContext } from "react";
-import { AppContext } from "../store/AppContext";
 
 const SongList = ({ number, title, favourite, lyrics }) => {
   const navigation = useNavigation();
@@ -30,7 +28,7 @@ const SongList = ({ number, title, favourite, lyrics }) => {
           <Text style={{ textAlign: "justify" }}>{title} </Text>
         </View>
 
-        <FavIcon favourite={favourite} />
+        <FavIcon favourite={favourite} id={number} />
       </Pressable>
     </RoundedContainer>
   );

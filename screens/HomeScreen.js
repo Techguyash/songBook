@@ -5,8 +5,7 @@ import Colors from "../constants/Colors";
 import { AppContext } from "../store/AppContext";
 
 const HomeScreen = () => {
-  
-  const { allSongList } = useContext(AppContext);
+  const { allSongList, favouriteSongList } = useContext(AppContext);
 
   return (
     <View style={styles.homeContainer}>

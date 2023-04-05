@@ -1,23 +1,25 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { AppContext } from "../store/AppContext";
 
 const FavIcon = ({ favourite, id }) => {
   const [favState, setFavState] = useState(favourite);
 
-  const favouriteChangeHandler = () => {
-    console.log("logged");
-    setFavState((prev) => !prev);
+  const { toggleFavouritesList } = useContext(AppContext);
+
+  const toggleFavSong = () => {
+    toggleFavouritesList(id);
   };
 
   return (
     <View style={styles.favIcon}>
-      {favState ? (
-        <Pressable onPress={favouriteChangeHandler}>
+      {favourite ? (
+        <Pressable onPress={toggleFavSong}>
           <Ionicons name="heart-sharp" size={24} color="red" />
         </Pressable>
       ) : (
-        <Pressable onPress={favouriteChangeHandler}>
+        <Pressable onPress={toggleFavSong}>
           <Ionicons name="heart-outline" size={24} color="black" />
         </Pressable>
       )}
@@ -27,7 +29,6 @@ const FavIcon = ({ favourite, id }) => {
 
 const styles = StyleSheet.create({
   favIcon: {
-    // backgroundColor: "blue",
     flex: 0.8,
     alignItems: "center",
     justifyContent: "center",

@@ -7,10 +7,7 @@ import Songs from "../data/Data";
 const INITIAL_STATE = {
   isLoading: false,
   isError: false,
-  favouriteSongList: [],
   allSongList: [],
-  addSongToFavList: () => {},
-  removeSongFromFavList: () => {},
 };
 
 export const AppContext = createContext({ ...INITIAL_STATE });
@@ -18,19 +15,16 @@ export const AppContext = createContext({ ...INITIAL_STATE });
 const AppCtxProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
-  const setDummyFavourites = async () => {
+  const setFavouritesToStorgae = async (value) => {
     try {
-      const value = [1, 2, 10];
       await AsyncStorage.setItem("favouriteList", JSON.stringify(value));
+      getFavouritesFromStorage();
     } catch (error) {
       console.log("setting fav error : " + error);
     }
   };
 
-  const mapFavouriteObjects = () => {
-    const favorites = state.favouriteSongList;
-    const allSongs = state.allSongList;
-
+  const mapFavouriteObjects = (favorites, allSongs) => {
     const mappedObject = allSongs.map((obj) => {
       if (favorites.includes(obj.number)) {
         return { ...obj, favourite: true };
@@ -39,56 +33,51 @@ const AppCtxProvider = ({ children }) => {
       }
     });
 
-    dispatch({ type: "SET_API_DATA", payload: mappedObject });
+    return mappedObject;
   };
 
-  const getDummyFavourites = async () => {
+  const getFavouritesFromStorage = async () => {
     try {
       const payload = await AsyncStorage.getItem("favouriteList");
       const fav = payload != null ? JSON.parse(payload) : null;
-
-      // mapFavouriteObjects();
-
-      dispatch({ type: "SET_FAVOURITE_DATA", payload: fav });
+      return fav;
     } catch (error) {
       console.log("getting fav error : " + error);
     }
   };
 
   const getAllSongsFromFirebase = async () => {
-    dispatch({ type: "SET_LOADING" });
     try {
-      await dispatch({ type: "SET_API_DATA", payload: Songs });
+      // from firebase : take song from firebase
+      dispatch({ type: "SET_LOADING" });
+      const favourites = await getFavouritesFromStorage();
+      const mappedSongs = mapFavouriteObjects(favourites, Songs);
+      dispatch({ type: "SET_API_DATA", payload: mappedSongs });
     } catch (err) {
       dispatch({ type: "API_ERROR" });
       console.log(err);
     }
   };
 
-  const addSongToFavList = (id) => {
-    let temp = state.favouriteSongList;
-    if (!temp.includes(id)) {
-      temp.push(id);
-      dispatch({ type: "SET_FAVOURITE_DATA", payload: temp });
+  const toggleFavouritesList = async (id) => {
+    let favourites = await getFavouritesFromStorage();
+    console.log(favourites, id);
+    if (favourites.includes(id)) {
+      favourites = favourites.filter((number) => number != id);
+    } else {
+      favourites.push(id);
     }
-  };
-  const removeSongFromFavList = () => {
-    console.log(temp);
+    setFavouritesToStorgae(favourites);
+
+    dispatch({ type: "TOGGLE_FAVOURITE", payload: id });
   };
 
   useEffect(() => {
-    // Remove this : used for testing purposes
     getAllSongsFromFirebase();
-    setDummyFavourites();
-    getDummyFavourites();
-
-    //--------------------------------
   }, []);
 
   return (
-    <AppContext.Provider
-      value={{ ...state, addSongToFavList, removeSongFromFavList }}
-    >
+    <AppContext.Provider value={{ ...state, toggleFavouritesList }}>
       {children}
     </AppContext.Provider>
   );

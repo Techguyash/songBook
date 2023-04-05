@@ -7,12 +7,16 @@ const SongReducer = (state, action) => {
         allSongList: action.payload,
       };
 
-    case "SET_FAVOURITE_DATA":
-      return {
-        ...state,
-        isLoading: false,
-        favouriteSongList: action.payload,
-      };
+    case "TOGGLE_FAVOURITE":
+      const allSongsDuplicate = [...state.allSongList];
+      const id = action.payload;
+      const songs = allSongsDuplicate.map((song) => {
+        if (song.number == id) {
+          return { ...song, favourite: !song.favourite };
+        }
+        return song;
+      });
+      return { ...state, allSongList: songs };
 
     case "API_ERROR":
       return {
