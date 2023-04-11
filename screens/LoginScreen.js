@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Image, StyleSheet, Text, TextInput, View } from "react-native";
 import PrimaryButton from "../UI/PrimaryButton";
 import { AppContext } from "../store/AppContext";
+import Colors from "../constants/Colors";
 
 const LoginScreen = () => {
   const { userLoginHandler } = useContext(AppContext);

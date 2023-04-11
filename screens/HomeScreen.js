@@ -38,6 +38,9 @@ const HomeScreen = ({ navigation }) => {
                   marginRight: 25,
                   fontSize: 32,
                 }}
+                onPress={() => {
+                  navigation.navigate("manageSongScreen");
+                }}
               />
             )}
 
@@ -59,14 +62,13 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <>
-      {allSongList.lengt < 1 && (
-        <View style={styles.noFavouritesLayout}>
-          <Text style={{ fontSize: 100 }}>💔</Text>
-          <Text style={styles.emptyListText}>Your Favourite List is Empty</Text>
-        </View>
-      )}
-
       <View style={styles.homeContainer}>
+        {allSongList?.length < 1 && (
+          <View style={styles.noFavouritesLayout}>
+            <Text style={{ fontSize: 100 }}>😧</Text>
+            <Text style={styles.emptyListText}>Oops !! No Songs available</Text>
+          </View>
+        )}
         {!showSearchBar && (
           <SearchBar
             disableSearchBar={disableSearchBar}

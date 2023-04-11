@@ -5,14 +5,26 @@ import { useNavigation } from "@react-navigation/native";
 import Colors from "../constants/Colors";
 import FavIcon from "../UI/FavIcon";
 import RoundedContainer from "../UI/RoundedContainer";
+import { useContext } from "react";
+import { AppContext } from "../store/AppContext";
 
 const SongList = ({ number, title, favourite, lyrics }) => {
+  const { authenticated } = useContext(AppContext);
+
   const navigation = useNavigation();
 
-  const navigationHandler = () => {
+  const navigateSongScreenHandler = () => {
     navigation.navigate("songOutput", {
-      title: title,
       number: number,
+      title: title,
+      lyrics: lyrics,
+    });
+  };
+
+  const navigateAdminScreenHandler = () => {
+    navigation.navigate("manageSongScreen", {
+      number: number,
+      title: title,
       lyrics: lyrics,
     });
   };
@@ -22,7 +34,9 @@ const SongList = ({ number, title, favourite, lyrics }) => {
       <Pressable
         style={styles.SongListContainer}
         android_ripple={{ color: "#838285" }}
-        onPress={navigationHandler}
+        onPress={
+          authenticated ? navigateAdminScreenHandler : navigateSongScreenHandler
+        }
       >
         <View style={styles.title}>
           <Text style={{ textAlign: "justify" }}>{title} </Text>

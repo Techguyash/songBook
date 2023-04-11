@@ -7,13 +7,16 @@ import Songs from "../data/Data";
 const INITIAL_STATE = {
   isLoading: false,
   isError: false,
-  authenticated: false,
+  authenticated: true,
   allSongList: [],
-  toggleFavouritesList: () => {},
   filteredList: [],
+  toggleFavouritesList: () => {},
   filterSongByTitleHandler: () => {},
   userLoginHandler: () => {},
   userLogoutHandler: () => {},
+  addSong: ({ number, title, lyrics }) => {},
+  deleteSong: () => {},
+  updateSong: (number, { title, lyrics }) => {},
 };
 
 export const AppContext = createContext({ ...INITIAL_STATE });
@@ -88,12 +91,26 @@ const AppCtxProvider = ({ children }) => {
 
   const userLoginHandler = () => {
     dispatch({ type: "SET_AUTH_TRUE" });
-   
   };
 
   const userLogoutHandler = () => {
     dispatch({ type: "SET_AUTH_FALSE" });
-   
+  };
+
+  // Need to change this to a firebase
+  const addSong = (songData) => {
+    dispatch({ type: "ADD_SONG", payload: songData });
+  };
+
+  const deleteSong = (number) => {
+    dispatch({ type: "DELETE_SONG", payload: number });
+  };
+
+  const updateSong = (number, songData) => {
+    dispatch({
+      type: "UPDATE_SONG",
+      payload: { number: number, data: songData },
+    });
   };
 
   useEffect(() => {
@@ -106,6 +123,9 @@ const AppCtxProvider = ({ children }) => {
     filterSongByTitleHandler: filterSongByTitleHandler,
     userLoginHandler: userLoginHandler,
     userLogoutHandler: userLogoutHandler,
+    addSong: addSong,
+    updateSong: updateSong,
+    deleteSong: deleteSong,
   };
 
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;

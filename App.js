@@ -14,6 +14,7 @@ import SettingsScreen from "./screens/SettingsScreen";
 import MyFavouriteScreen from "./screens/MyFavouriteScreen";
 import AppCtxProvider from "./store/AppContext";
 import LoginScreen from "./screens/LoginScreen";
+import ManageSongsScreen from "./screens/ManageSongsScreen";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -21,7 +22,7 @@ const BottomTabs = createBottomTabNavigator();
 function BottomNavigation() {
   return (
     <BottomTabs.Navigator
-      screenOptions={{
+      screenOptions={({ navigation }) => ({
         headerStyle: {
           backgroundColor: Colors.background,
           borderBottomColor: "black",
@@ -32,7 +33,7 @@ function BottomNavigation() {
         tabBarStyle: { backgroundColor: Colors.accentBackground },
         tabBarActiveTintColor: Colors.white,
         tabBarShowLabel: false,
-      }}
+      })}
     >
       <BottomTabs.Screen
         name="HomeScreen"
@@ -106,6 +107,12 @@ export default function App() {
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
+              headerStyle: {
+                backgroundColor: Colors.background,
+                borderBottomColor: "black",
+                borderBottomWidth: 1,
+                height: 105,
+              },
               contentStyle: { backgroundColor: Colors.background },
             }}
           >
@@ -126,6 +133,14 @@ export default function App() {
               name="loginScreen"
               component={LoginScreen}
               options={{ headerShown: false }}
+            />
+
+            <Stack.Screen
+              name="manageSongScreen"
+              component={ManageSongsScreen}
+              options={{
+                presentation: "modal",
+              }}
             />
           </Stack.Navigator>
         </NavigationContainer>

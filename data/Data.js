@@ -10,7 +10,7 @@ export default Songs = [
     lyrics: `அக்கினி`,
   },
   {
-    number: 5,
+    number: 3,
     title: `3.  ஊற்றும்   தேவ`,
     lyrics: `அக்கினி ஊற்றும்`,
   },
