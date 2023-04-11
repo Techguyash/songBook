@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import React, { useContext, useLayoutEffect, useState } from "react";
+import React, { useContext } from "react";
 import { AppContext } from "../store/AppContext";
 import SongList from "../components/SongList";
 import Colors from "../constants/Colors";
@@ -12,7 +12,10 @@ const MyFavouriteScreen = () => {
   return (
     <>
       {filteredSongs.length < 1 ? (
-        <Text>No Favourites here</Text>
+        <View style={styles.noFavouritesLayout}>
+          <Text style={{ fontSize: 100 }}>💔</Text>
+          <Text style={styles.emptyListText}>Your Favourite List is Empty</Text>
+        </View>
       ) : (
         <View style={styles.homeContainer}>
           <FlatList
@@ -39,6 +42,16 @@ const styles = StyleSheet.create({
   homeContainer: {
     flex: 1,
     backgroundColor: Colors.background,
+  },
+  noFavouritesLayout: {
+    flex: 1,
+    backgroundColor: Colors.background,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  emptyListText: {
+    fontSize: 19,
+    fontWeight: "600",
   },
 });
 

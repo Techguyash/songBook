@@ -1,5 +1,17 @@
 const SongReducer = (state, action) => {
   switch (action.type) {
+    case "SET_AUTH_TRUE":
+      return {
+        ...state,
+        authenticated: true,
+      };
+
+    case "SET_AUTH_FALSE":
+      return {
+        ...state,
+        authenticated: false,
+      };
+
     case "SET_API_DATA":
       return {
         ...state,
@@ -17,6 +29,12 @@ const SongReducer = (state, action) => {
         return song;
       });
       return { ...state, allSongList: songs };
+
+    case "SET_FAVOURITE_LIST":
+      return {
+        ...state,
+        filteredList: action.payload,
+      };
 
     case "API_ERROR":
       return {

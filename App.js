@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -10,9 +10,10 @@ import Colors from "./constants/Colors";
 import SongOutput from "./screens/SongOutput";
 import HomeScreen from "./screens/HomeScreen";
 import NotificationScreen from "./screens/NotificationScreen";
-import UserScreen from "./screens/UserScreen";
+import SettingsScreen from "./screens/SettingsScreen";
 import MyFavouriteScreen from "./screens/MyFavouriteScreen";
 import AppCtxProvider from "./store/AppContext";
+import LoginScreen from "./screens/LoginScreen";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -21,11 +22,15 @@ function BottomNavigation() {
   return (
     <BottomTabs.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: Colors.background },
+        headerStyle: {
+          backgroundColor: Colors.background,
+          borderBottomColor: "black",
+          borderBottomWidth: 1,
+          height: 105,
+        },
         headerTintColor: Colors.accentBackground,
         tabBarStyle: { backgroundColor: Colors.accentBackground },
         tabBarActiveTintColor: Colors.white,
-
         tabBarShowLabel: false,
       }}
     >
@@ -34,7 +39,7 @@ function BottomNavigation() {
         component={HomeScreen}
         options={{
           title: "Song Book",
-          tabBarIcon: ({ color, size, focused }) => (
+          tabBarIcon: ({ color, focused }) => (
             <Ionicons
               name={focused ? "md-home-sharp" : "home-outline"}
               size={22}
@@ -62,7 +67,7 @@ function BottomNavigation() {
         component={NotificationScreen}
         options={{
           title: "Notification",
-          tabBarIcon: ({ color, size, focused }) => (
+          tabBarIcon: ({ color, focused }) => (
             <Ionicons
               name={
                 focused ? "ios-notifications-sharp" : "notifications-outline"
@@ -71,15 +76,18 @@ function BottomNavigation() {
               color={color}
             />
           ),
-
           tabBarBadge: "1",
         }}
       />
       <BottomTabs.Screen
         name="UserScreen"
-        component={UserScreen}
+        component={SettingsScreen}
         options={{
           title: "",
+          headerStyle: {
+            backgroundColor: Colors.white,
+            height: 10,
+          },
           tabBarIcon: ({ color, size, focused }) => (
             <Ionicons name="ios-settings-outline" size={24} color={color} />
           ),
@@ -109,7 +117,15 @@ export default function App() {
             <Stack.Screen
               name="songOutput"
               component={SongOutput}
-              options={{ headerStyle: { backgroundColor: Colors.background } }}
+              options={{
+                headerStyle: { backgroundColor: Colors.background },
+              }}
+            />
+
+            <Stack.Screen
+              name="loginScreen"
+              component={LoginScreen}
+              options={{ headerShown: false }}
             />
           </Stack.Navigator>
         </NavigationContainer>
@@ -122,7 +138,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // marginTop: Platform.OS === "android" ? 30 : 0,
-
     backgroundColor: Colors.background,
   },
 });

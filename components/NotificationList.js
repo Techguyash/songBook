@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import RoundedContainer from "../UI/RoundedContainer";
 import { Ionicons } from "@expo/vector-icons";
 import NotificationContent from "../UI/NotificationContent";

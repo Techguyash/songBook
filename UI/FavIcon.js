@@ -4,8 +4,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { AppContext } from "../store/AppContext";
 
 const FavIcon = ({ favourite, id }) => {
-  const [favState, setFavState] = useState(favourite);
-
   const { toggleFavouritesList } = useContext(AppContext);
 
   const toggleFavSong = () => {

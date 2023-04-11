@@ -1,8 +1,36 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { useContext, useLayoutEffect } from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
+
+import { Ionicons } from "@expo/vector-icons";
+
 import NotificationList from "../components/NotificationList";
 import Colors from "../constants/Colors";
+import { AppContext } from "../store/AppContext";
 
-const NotificationScreen = () => {
+const NotificationScreen = ({ navigation }) => {
+  const { authenticated } = useContext(AppContext);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <View style={styles.headerContainer}>
+            {authenticated && (
+              <Ionicons
+                name="add-outline"
+                size={26}
+                style={{
+                  marginRight: 25,
+                  fontSize: 32,
+                }}
+              />
+            )}
+          </View>
+        );
+      },
+    });
+  }, [authenticated]);
+
   return (
     <ScrollView style={styles.container}>
       <NotificationList
