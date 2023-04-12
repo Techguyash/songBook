@@ -5,19 +5,20 @@ const SongReducer = (state, action) => {
         ...state,
         allSongList: [...state.allSongList, { ...action.payload }],
       };
+
     case "UPDATE_SONG":
       const updatableSongIndex = state.allSongList.findIndex(
         (song) => song.number === action.payload.number
       );
-      console.log("found Index ", updatableSongIndex);
 
       const updatableSong = state.allSongList[updatableSongIndex];
       const updatedSong = { ...updatableSong, ...action.payload.data };
-      const updatedAllSongList = { ...state.allSongList };
+      const updatedAllSongList = [...state.allSongList];
       updatedAllSongList[updatableSongIndex] = updatedSong;
+
       return {
         ...state,
-        allSongList: updatedAllSongList,
+        allSongList: updatedAllSongList, // error in this line code
       };
 
     case "DELETE_SONG":

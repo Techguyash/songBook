@@ -1,17 +1,22 @@
 import { useContext, useLayoutEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
+import {
+  createSongInFirebase,
+  deleteSongInFirebase,
+  updateSongInFirebase,
+} from "../api/songs-http";
 import SongForm from "../components/manageSong/SongForm";
 import Colors from "../constants/Colors";
 import { AppContext } from "../store/AppContext";
-import Button from "../UI/Button";
 import IconButton from "../UI/IconButton";
 
 const ManageSongsScreen = ({ route, navigation }) => {
   const { updateSong, deleteSong, addSong, allSongList } =
     useContext(AppContext);
 
-  const editedSongId = route.params?.number;
-  const isEditing = !!editedSongId;
+  const editedSongNumber = route.params?.number;
+  const editedSongId = route.params?.id;
+  const isEditing = !!editedSongNumber;
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -19,10 +24,13 @@ const ManageSongsScreen = ({ route, navigation }) => {
     });
   }, [navigation, isEditing]);
 
-  const selectedSong = allSongList.find((song) => song.number === editedSongId);
+  const selectedSong = allSongList.find((song) => {
+    return song.number === editedSongNumber;
+  });
 
   const deleteSongHandler = () => {
-    deleteSong(editedSongId);
+    deleteSong(editedSongNumber);
+    deleteSongInFirebase(editedSongId);
     navigation.goBack();
   };
 
@@ -30,11 +38,13 @@ const ManageSongsScreen = ({ route, navigation }) => {
     navigation.goBack();
   };
 
-  const confirmHandler = (songData) => {
+  const confirmHandler = async (songData) => {
     if (isEditing) {
-      updateSong(editedSongId, songData);
+      await updateSong(editedSongNumber, songData);
+      await updateSongInFirebase(editedSongId, songData);
     } else {
       addSong(songData);
+      await createSongInFirebase(songData);
     }
 
     navigation.goBack();

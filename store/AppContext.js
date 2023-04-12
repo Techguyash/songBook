@@ -3,11 +3,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import reducer from "../reducer/SongReducer";
 import Songs from "../data/Data";
+import {
+  createSongInFirebase,
+  deleteSongInFirebase,
+  fetchAllDataFromFirebase,
+  updateSongInFirebase,
+} from "../api/songs-http";
 
 const INITIAL_STATE = {
   isLoading: false,
   isError: false,
-  authenticated: true,
+  authenticated: false,
   allSongList: [],
   filteredList: [],
   toggleFavouritesList: () => {},
@@ -57,10 +63,15 @@ const AppCtxProvider = ({ children }) => {
 
   const getAllSongsFromFirebase = async () => {
     try {
-      // from firebase : take song from firebase
       dispatch({ type: "SET_LOADING" });
+
+      const data = await fetchAllDataFromFirebase();
+
       const favourites = await getFavouritesFromStorage();
-      const mappedSongs = mapFavouriteObjects(favourites, Songs);
+      // for local songs
+      // const mappedSongs = mapFavouriteObjects(favourites, Songs);
+
+      const mappedSongs = await mapFavouriteObjects(favourites, data);
       dispatch({ type: "SET_API_DATA", payload: mappedSongs });
       dispatch({ type: "SET_FAVOURITE_LIST", payload: mappedSongs });
     } catch (err) {
@@ -106,8 +117,8 @@ const AppCtxProvider = ({ children }) => {
     dispatch({ type: "DELETE_SONG", payload: number });
   };
 
-  const updateSong = (number, songData) => {
-    dispatch({
+  const updateSong = async (number, songData) => {
+    await dispatch({
       type: "UPDATE_SONG",
       payload: { number: number, data: songData },
     });

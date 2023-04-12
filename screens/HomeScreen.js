@@ -81,6 +81,7 @@ const HomeScreen = ({ navigation }) => {
             renderItem={(song) => {
               return (
                 <SongList
+                  id={song.item.id}
                   title={song.item.title}
                   number={song.item.number}
                   lyrics={song.item.lyrics}
@@ -88,7 +89,7 @@ const HomeScreen = ({ navigation }) => {
                 />
               );
             }}
-            keyExtractor={(song) => song.number}
+            keyExtractor={(song) => song.id}
           />
         </View>
       </View>

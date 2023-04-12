@@ -8,7 +8,7 @@ import RoundedContainer from "../UI/RoundedContainer";
 import { useContext } from "react";
 import { AppContext } from "../store/AppContext";
 
-const SongList = ({ number, title, favourite, lyrics }) => {
+const SongList = ({ number, title, favourite, lyrics, id }) => {
   const { authenticated } = useContext(AppContext);
 
   const navigation = useNavigation();
@@ -18,6 +18,7 @@ const SongList = ({ number, title, favourite, lyrics }) => {
       number: number,
       title: title,
       lyrics: lyrics,
+      id: id,
     });
   };
 
@@ -26,6 +27,7 @@ const SongList = ({ number, title, favourite, lyrics }) => {
       number: number,
       title: title,
       lyrics: lyrics,
+      id: id,
     });
   };
 

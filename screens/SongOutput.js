@@ -9,6 +9,11 @@ function SongOutput({ route, navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
       title: title,
+      headerStyle: {
+        backgroundColor: Colors.background,
+        borderBottomWidth: 1,
+        borderBottomColor: Colors.black,
+      },
     });
   }, [title, navigation]);
 
@@ -41,6 +46,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginVertical: 5,
     textAlign: "center",
+    marginBottom: 10,
+    paddingBottom: 15,
   },
 });
 
