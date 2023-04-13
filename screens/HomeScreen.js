@@ -8,8 +8,13 @@ import { Ionicons } from "@expo/vector-icons";
 import SearchBar from "../components/SearchBar";
 
 const HomeScreen = ({ navigation }) => {
-  const { allSongList, filteredList, authenticated, filterSongByTitleHandler } =
-    useContext(AppContext);
+  const {
+    allSongList,
+    filteredList,
+    authenticated,
+    filterSongByTitleHandler,
+    getAllSongsFromFirebase,
+  } = useContext(AppContext);
 
   const [showSearchBar, setShowSearchBar] = useState(true);
 
@@ -59,6 +64,10 @@ const HomeScreen = ({ navigation }) => {
       },
     });
   }, [authenticated, showSearchBar]);
+
+  useLayoutEffect(() => {
+    getAllSongsFromFirebase();
+  }, [allSongList]);
 
   return (
     <>

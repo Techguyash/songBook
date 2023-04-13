@@ -13,9 +13,11 @@ import {
 const INITIAL_STATE = {
   isLoading: false,
   isError: false,
-  authenticated: false,
+  authenticated: true,
   allSongList: [],
   filteredList: [],
+
+  getAllSongsFromFirebase: () => {},
   toggleFavouritesList: () => {},
   filterSongByTitleHandler: () => {},
   userLoginHandler: () => {},
@@ -137,6 +139,7 @@ const AppCtxProvider = ({ children }) => {
     addSong: addSong,
     updateSong: updateSong,
     deleteSong: deleteSong,
+    getAllSongsFromFirebase: getAllSongsFromFirebase,
   };
 
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;

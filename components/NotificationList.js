@@ -1,22 +1,30 @@
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import RoundedContainer from "../UI/RoundedContainer";
-import { Ionicons } from "@expo/vector-icons";
 import NotificationContent from "../UI/NotificationContent";
 import Colors from "../constants/Colors";
+import { useNavigation } from "@react-navigation/native";
+import { useContext } from "react";
+import { AppContext } from "../store/AppContext";
 
 const NotificationList = (props) => {
-  return (
-    <RoundedContainer>
-      <View style={styles.container}>
-        <View style={styles.userArea}>
-          <NotificationContent {...props} />
-        </View>
+  const { authenticated } = useContext(AppContext);
 
-        <View style={styles.adminMenu}>
-          <Ionicons name="ellipsis-vertical" size={22} color="black" />
+  const navigation = useNavigation();
+
+  const navigateToAdminScreen = () => {
+    navigation.navigate("manageNotificationScreen", { id: props.id });
+  };
+
+  return (
+    <Pressable onPress={authenticated ? navigateToAdminScreen : () => {}}>
+      <RoundedContainer>
+        <View style={styles.container}>
+          <View style={styles.userArea}>
+            <NotificationContent {...props} />
+          </View>
         </View>
-      </View>
-    </RoundedContainer>
+      </RoundedContainer>
+    </Pressable>
   );
 };
 

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import Colors from "../constants/Colors";
 
 const NotificationContent = ({ date, title, description }) => {

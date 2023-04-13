@@ -15,6 +15,8 @@ import MyFavouriteScreen from "./screens/MyFavouriteScreen";
 import AppCtxProvider from "./store/AppContext";
 import LoginScreen from "./screens/LoginScreen";
 import ManageSongsScreen from "./screens/ManageSongsScreen";
+import ManageNotificationScreen from "./screens/ManageNotificationScreen";
+import NotifyCtxProvider from "./store/NotifyContext";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -102,49 +104,58 @@ function BottomNavigation() {
 export default function App() {
   return (
     <AppCtxProvider>
-      <View style={styles.container}>
-        <StatusBar style="auto" />
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerStyle: {
-                backgroundColor: Colors.background,
-                borderBottomColor: "black",
-                borderBottomWidth: 1,
-                height: 105,
-              },
-              contentStyle: { backgroundColor: Colors.background },
-            }}
-          >
-            <Stack.Screen
-              name="bottomNav"
-              component={BottomNavigation}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="songOutput"
-              component={SongOutput}
-              options={{
-                headerStyle: { backgroundColor: Colors.background },
+      <NotifyCtxProvider>
+        <View style={styles.container}>
+          <StatusBar style="auto" />
+          <NavigationContainer>
+            <Stack.Navigator
+              screenOptions={{
+                headerStyle: {
+                  backgroundColor: Colors.background,
+                  borderBottomColor: "black",
+                  borderBottomWidth: 1,
+                  height: 105,
+                },
+                contentStyle: { backgroundColor: Colors.background },
               }}
-            />
+            >
+              <Stack.Screen
+                name="bottomNav"
+                component={BottomNavigation}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="songOutput"
+                component={SongOutput}
+                options={{
+                  headerStyle: { backgroundColor: Colors.background },
+                }}
+              />
 
-            <Stack.Screen
-              name="loginScreen"
-              component={LoginScreen}
-              options={{ headerShown: false }}
-            />
+              <Stack.Screen
+                name="loginScreen"
+                component={LoginScreen}
+                options={{ headerShown: false }}
+              />
 
-            <Stack.Screen
-              name="manageSongScreen"
-              component={ManageSongsScreen}
-              options={{
-                presentation: "modal",
-              }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </View>
+              <Stack.Screen
+                name="manageSongScreen"
+                component={ManageSongsScreen}
+                options={{
+                  presentation: "modal",
+                }}
+              />
+              <Stack.Screen
+                name="manageNotificationScreen"
+                component={ManageNotificationScreen}
+                options={{
+                  presentation: "modal",
+                }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </View>
+      </NotifyCtxProvider>
     </AppCtxProvider>
   );
 }
