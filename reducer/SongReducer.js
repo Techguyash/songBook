@@ -65,13 +65,18 @@ const SongReducer = (state, action) => {
         filteredList: action.payload,
       };
 
+    case "SET_TEXT_FONT":
+      return {
+        ...state,
+        textFontSize: action.payload,
+      };
+
     case "API_ERROR":
       return {
         ...state,
         isLoading: false,
         isError: true,
       };
-  
 
     default:
       return state;

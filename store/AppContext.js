@@ -12,7 +12,7 @@ const INITIAL_STATE = {
   authenticated: true,
   allSongList: [],
   filteredList: [],
-
+  textFontSize: 15,
   getAllSongsFromFirebase: () => {},
   toggleFavouritesList: () => {},
   filterSongByTitleHandler: () => {},
@@ -21,6 +21,7 @@ const INITIAL_STATE = {
   addSong: ({ number, title, lyrics }) => {},
   deleteSong: () => {},
   updateSong: (number, { title, lyrics }) => {},
+  setTextFontSize: (size) => {},
 };
 
 export const AppContext = createContext({ ...INITIAL_STATE });
@@ -106,7 +107,10 @@ const AppCtxProvider = ({ children }) => {
     dispatch({ type: "SET_AUTH_FALSE" });
   };
 
-  // Need to change this to a firebase
+  const setTextFontSize = (fontSize) => {
+    dispatch({ type: "SET_TEXT_FONT", payload: fontSize });
+  };
+
   const addSong = (songData) => {
     dispatch({ type: "ADD_SONG", payload: songData });
   };
@@ -136,6 +140,7 @@ const AppCtxProvider = ({ children }) => {
     updateSong: updateSong,
     deleteSong: deleteSong,
     getAllSongsFromFirebase: getAllSongsFromFirebase,
+    setTextFontSize: setTextFontSize,
   };
 
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;

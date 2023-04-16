@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { useContext, useLayoutEffect } from "react";
+import { useContext, useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 import Colors from "../constants/Colors";
@@ -7,7 +7,8 @@ import MenuItem from "../UI/MenuItem";
 import { AppContext } from "../store/AppContext";
 
 const SettingsScreen = ({ navigation }) => {
-  const { userLogoutHandler, authenticated } = useContext(AppContext);
+  const { userLogoutHandler, authenticated, textFontSize, setTextFontSize } =
+    useContext(AppContext);
 
   const navigator = useNavigation();
 
@@ -37,7 +38,12 @@ const SettingsScreen = ({ navigation }) => {
           title="user"
           onPress={navigateLoginScreenHandler}
         />
-        <MenuItem icon="text-outline" title="Font Size" onPress={() => {}} />
+        <MenuItem
+          icon="text-outline"
+          title="Font Size"
+          onPress={setTextFontSize}
+          value={"" + textFontSize}
+        />
 
         <MenuItem icon="timer-outline" title="About us" onPress={() => {}} />
       </View>

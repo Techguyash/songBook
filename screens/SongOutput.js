@@ -1,8 +1,11 @@
-import { useLayoutEffect } from "react";
+import { useContext, useLayoutEffect } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import Colors from "../constants/Colors";
+import { AppContext } from "../store/AppContext";
 
 function SongOutput({ route, navigation }) {
+  const { textFontSize } = useContext(AppContext);
+
   const title = route.params.title;
   const lyrics = route.params.lyrics;
 
@@ -23,7 +26,9 @@ function SongOutput({ route, navigation }) {
         showsVerticalScrollIndicator={true}
         style={styles.contentArea}
       >
-        <Text style={styles.textContent}>{lyrics}</Text>
+        <Text style={[styles.textContent, { fontSize: Number(textFontSize) }]}>
+          {lyrics}
+        </Text>
       </ScrollView>
     </View>
   );
@@ -43,7 +48,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   textContent: {
-    fontSize: 15,
     marginVertical: 5,
     textAlign: "center",
     marginBottom: 10,
