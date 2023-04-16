@@ -3,6 +3,18 @@ import Colors from "../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 
+import ModalSelector from "react-native-modal-selector";
+
+const data = [
+  { key: 0, section: true, label: "Select Font Size" },
+  { key: 15, label: "15" },
+  { key: 16, label: "16" },
+  { key: 18, label: "18" },
+  { key: 20, label: "20" },
+  { key: 24, label: "24" },
+  { key: 28, label: "28" },
+];
+
 const MenuItem = ({ icon, title, onPress, value }) => {
   const showInput = !!value;
   const [fontSize, setFontSize] = useState(value);
@@ -25,11 +37,12 @@ const MenuItem = ({ icon, title, onPress, value }) => {
         {showInput && (
           <View style={styles.txtContainer}>
             <View style={styles.innerContainer}>
-              <TextInput
-                style={styles.textBox}
-                value={fontSize}
-                onChangeText={fontSizeChangeHandler}
-                keyboardType="decimal-pad"
+              <ModalSelector
+                data={data}
+                initValue="Font Size"
+                onChange={(option) => {
+                  fontSizeChangeHandler(option.key);
+                }}
               />
             </View>
           </View>
