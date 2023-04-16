@@ -37,12 +37,10 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   rootLayout: {
     flex: 1,
-    // backgroundColor: "red",
     marginTop: 130,
   },
   headerLayout: {
     height: 140,
-    // backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
     gap: 10,
@@ -52,7 +50,6 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   bodyLayout: {
-    // backgroundColor: "green",
     height: 300,
     justifyContent: "center",
     alignItems: "center",
@@ -77,7 +74,6 @@ const styles = StyleSheet.create({
   },
 
   footerLayout: {
-    // backgroundColor: "yellow",
     justifyContent: "center",
     alignItems: "center",
     height: 130,

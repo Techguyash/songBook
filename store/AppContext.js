@@ -1,14 +1,10 @@
-import React, { createContext, useEffect, useReducer, useState } from "react";
+import React, { createContext, useEffect, useReducer } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 
 import reducer from "../reducer/SongReducer";
-import Songs from "../data/Data";
-import {
-  createSongInFirebase,
-  deleteSongInFirebase,
-  fetchAllDataFromFirebase,
-  updateSongInFirebase,
-} from "../api/songs-http";
+import { fetchAllDataFromFirebase } from "../api/songs-http";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 const INITIAL_STATE = {
   isLoading: false,
@@ -30,6 +26,8 @@ const INITIAL_STATE = {
 export const AppContext = createContext({ ...INITIAL_STATE });
 
 const AppCtxProvider = ({ children }) => {
+  const navigate = useNavigation();
+
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
   const setFavouritesToStorgae = async (value) => {
@@ -65,8 +63,6 @@ const AppCtxProvider = ({ children }) => {
 
   const getAllSongsFromFirebase = async () => {
     try {
-      dispatch({ type: "SET_LOADING" });
-
       const data = await fetchAllDataFromFirebase();
 
       const favourites = await getFavouritesFromStorage();
@@ -77,7 +73,6 @@ const AppCtxProvider = ({ children }) => {
       dispatch({ type: "SET_API_DATA", payload: mappedSongs });
       dispatch({ type: "SET_FAVOURITE_LIST", payload: mappedSongs });
     } catch (err) {
-      dispatch({ type: "API_ERROR" });
       console.log(err);
     }
   };
@@ -104,6 +99,7 @@ const AppCtxProvider = ({ children }) => {
 
   const userLoginHandler = () => {
     dispatch({ type: "SET_AUTH_TRUE" });
+    navigate.navigate("HomeScreen");
   };
 
   const userLogoutHandler = () => {

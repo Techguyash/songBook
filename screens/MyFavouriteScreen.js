@@ -5,7 +5,7 @@ import SongList from "../components/SongList";
 import Colors from "../constants/Colors";
 
 const MyFavouriteScreen = () => {
-  const { allSongList } = useContext(AppContext);
+  const { allSongList, isLoading } = useContext(AppContext);
 
   const filteredSongs = allSongList.filter((song) => song.favourite);
 

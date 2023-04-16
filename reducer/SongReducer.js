@@ -45,7 +45,6 @@ const SongReducer = (state, action) => {
     case "SET_API_DATA":
       return {
         ...state,
-        isLoading: false,
         allSongList: action.payload,
       };
 
@@ -72,11 +71,7 @@ const SongReducer = (state, action) => {
         isLoading: false,
         isError: true,
       };
-    case "SET_LOADING":
-      return {
-        ...state,
-        isLoading: true,
-      };
+  
 
     default:
       return state;

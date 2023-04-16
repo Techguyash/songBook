@@ -39,7 +39,7 @@ const SettingsScreen = ({ navigation }) => {
         />
         <MenuItem icon="text-outline" title="Font Size" onPress={() => {}} />
 
-        <MenuItem icon="timer-outline" title="Schedule" onPress={() => {}} />
+        <MenuItem icon="timer-outline" title="About us" onPress={() => {}} />
       </View>
       {authenticated && (
         <Pressable onPress={userLogoutHandler}>

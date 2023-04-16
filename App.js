@@ -17,6 +17,7 @@ import LoginScreen from "./screens/LoginScreen";
 import ManageSongsScreen from "./screens/ManageSongsScreen";
 import ManageNotificationScreen from "./screens/ManageNotificationScreen";
 import NotifyCtxProvider from "./store/NotifyContext";
+import Toast from "react-native-toast-message";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -103,11 +104,11 @@ function BottomNavigation() {
 
 export default function App() {
   return (
-    <AppCtxProvider>
-      <NotifyCtxProvider>
-        <View style={styles.container}>
-          <StatusBar style="auto" />
-          <NavigationContainer>
+    <NavigationContainer>
+      <AppCtxProvider>
+        <NotifyCtxProvider>
+          <View style={styles.container}>
+            <StatusBar style="auto" />
             <Stack.Navigator
               screenOptions={{
                 headerStyle: {
@@ -153,10 +154,11 @@ export default function App() {
                 }}
               />
             </Stack.Navigator>
-          </NavigationContainer>
-        </View>
-      </NotifyCtxProvider>
-    </AppCtxProvider>
+          </View>
+        </NotifyCtxProvider>
+      </AppCtxProvider>
+      <Toast />
+    </NavigationContainer>
   );
 }
 

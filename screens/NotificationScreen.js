@@ -41,20 +41,22 @@ const NotificationScreen = ({ navigation }) => {
   }, [notifications]);
 
   return (
-    <FlatList
-      data={notifications}
-      renderItem={(notify) => {
-        return (
-          <NotificationList
-            id={notify.item.id}
-            date={notify.item.date}
-            title={notify.item.title}
-            description={notify.item.description}
-          />
-        );
-      }}
-      keyExtractor={(notify) => notify.id}
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={notifications}
+        renderItem={(notify) => {
+          return (
+            <NotificationList
+              id={notify.item.id}
+              date={notify.item.date}
+              title={notify.item.title}
+              description={notify.item.description}
+            />
+          );
+        }}
+        keyExtractor={(notify) => notify.id}
+      />
+    </View>
   );
 };
 
