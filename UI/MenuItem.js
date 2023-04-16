@@ -38,8 +38,16 @@ const MenuItem = ({ icon, title, onPress, value }) => {
           <View style={styles.txtContainer}>
             <View style={styles.innerContainer}>
               <ModalSelector
+                style={styles.modalOverlay}
+                overlayStyle={styles.overlayBackground}
+                sectionStyle={{
+                  backgroundColor: Colors.accentBackground,
+                  borderRadius: 25,
+                }}
+                sectionTextStyle={{ color: Colors.white }}
+                optionStyle={{ borderBottomColor: "black" }}
                 data={data}
-                initValue="Font Size"
+                initValue={fontSize}
                 onChange={(option) => {
                   fontSizeChangeHandler(option.key);
                 }}
@@ -53,6 +61,13 @@ const MenuItem = ({ icon, title, onPress, value }) => {
 };
 
 const styles = StyleSheet.create({
+  overlayBackground: {
+    flex: 1,
+    padding: "5%",
+    justifyContent: "center",
+    backgroundColor: "rgba(0,0,0,0.8)",
+  },
+
   menuList: {
     margin: 5,
     padding: 10,
@@ -71,6 +86,13 @@ const styles = StyleSheet.create({
   },
   txtContainer: {
     width: "65%",
+  },
+  modalOverlay: {
+    color: "black",
+    backgroundColor: Colors.accentBackground,
+    borderRadius: 10,
+    width: 65,
+    height: 38,
   },
 
   innerContainer: {

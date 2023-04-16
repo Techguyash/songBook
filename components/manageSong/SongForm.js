@@ -108,7 +108,7 @@ const SongForm = ({ onCancel, onSubmit, submitButtonLabel, defaultValues }) => {
 
 const styles = StyleSheet.create({
   title: {
-    marginVertical: 24,
+    marginVertical: 5,
     fontSize: 24,
     fontWeight: "bold",
     color: Colors.navColor,

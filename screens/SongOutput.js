@@ -37,15 +37,15 @@ function SongOutput({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.white,
   },
   contentArea: {
     height: "85%",
     backgroundColor: Colors.white,
-    margin: 8,
+    margin: 10,
     padding: 10,
     borderRadius: 10,
-    elevation: 20,
-    borderWidth: 1,
+    elevation: 25,
   },
   textContent: {
     marginVertical: 5,
