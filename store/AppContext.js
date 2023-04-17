@@ -9,7 +9,7 @@ import { Toast } from "react-native-toast-message/lib/src/Toast";
 const INITIAL_STATE = {
   isLoading: false,
   isError: false,
-  authenticated: true,
+  authenticated: false,
   allSongList: [],
   filteredList: [],
   textFontSize: 15,
@@ -87,11 +87,17 @@ const AppCtxProvider = ({ children }) => {
 
   const toggleFavouritesList = async (id) => {
     let favourites = await getFavouritesFromStorage();
-    if (favourites.includes(id)) {
-      favourites = favourites.filter((number) => number != id);
-    } else {
+    if (favourites == null) {
+      favourites = [];
       favourites.push(id);
+    } else {
+      if (favourites.includes(id)) {
+        favourites = favourites.filter((number) => number != id);
+      } else {
+        favourites.push(id);
+      }
     }
+
     setFavouritesToStorgae(favourites);
 
     dispatch({ type: "TOGGLE_FAVOURITE", payload: id });
