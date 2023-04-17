@@ -41,6 +41,13 @@ const AppCtxProvider = ({ children }) => {
   };
 
   const mapFavouriteObjects = (favorites, allSongs) => {
+    if (favorites == null) {
+      const mappedObjects = allSongs.map((obj) => {
+        return { ...obj, favorite: false };
+      });
+      return mappedObjects;
+    }
+
     const mappedObject = allSongs.map((obj) => {
       if (favorites.includes(obj.number)) {
         return { ...obj, favourite: true };
