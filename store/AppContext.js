@@ -117,7 +117,7 @@ const AppCtxProvider = ({ children }) => {
   };
 
   const userLogoutHandler = () => {
-    dispatch({ type: "SET_AUTH_FALSE" });
+    if (state.authenticated) dispatch({ type: "SET_AUTH_FALSE" });
   };
 
   const setTextFontSize = (fontSize) => {
