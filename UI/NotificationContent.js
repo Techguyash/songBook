@@ -1,7 +1,7 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import Colors from "../constants/Colors";
+import { Button, Pressable, StyleSheet, Text, View } from "react-native";
+import * as Linking from "expo-linking";
 
-const NotificationContent = ({ date, title, description }) => {
+const NotificationContent = ({ date, title, description, link, linkTitle }) => {
   return (
     <View style={styles.container}>
       <View>
@@ -11,12 +11,19 @@ const NotificationContent = ({ date, title, description }) => {
         <Text style={styles.title}>{title}</Text>
       </View>
 
-      {description ? (
+      {description && (
         <View style={styles.content}>
           <Text style={styles.description}>{description}</Text>
         </View>
-      ) : (
-        <></>
+      )}
+      {link && (
+        <Pressable
+          onPress={() => {
+            Linking.openURL(link);
+          }}
+        >
+          <Text style={styles.hyperLink}>{linkTitle}</Text>
+        </Pressable>
       )}
     </View>
   );
@@ -27,6 +34,12 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     width: "100%",
   },
+
+  hyperLink: {
+    color: "red",
+    padding: 5,
+    fontSize: 16,
+  },
   date: {
     color: "#8e8d8f",
     fontSize: 13,
@@ -34,18 +47,14 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   title: {
-    // backgroundColor: "white",
     fontWeight: "bold",
     fontSize: 17,
     padding: 5,
   },
-  content: {
-    // backgroundColor: "blue",
-  },
+  content: {},
   description: {
     fontSize: 15,
     padding: 5,
-    // backgroundColor: "violet",
     textAlign: "left",
     lineHeight: 23,
   },

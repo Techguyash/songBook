@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   inputMultipleLine: {
-    minHeight: 200,
+    minHeight: 140,
     textAlignVertical: "top",
   },
   invalidLabel: {

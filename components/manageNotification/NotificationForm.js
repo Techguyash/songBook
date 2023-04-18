@@ -14,6 +14,14 @@ const NotificationForm = ({ onCancel, onSubmit }) => {
       value: "",
       isValid: true,
     },
+    link: {
+      value: "",
+      isValid: true,
+    },
+    linkTitle: {
+      value: "",
+      isValid: true,
+    },
   });
 
   const inputChangeHandler = (inputIdentifier, enteredValue) => {
@@ -35,21 +43,36 @@ const NotificationForm = ({ onCancel, onSubmit }) => {
 
   const submitHandler = () => {
     const notifyData = {
+      date: getCurrentDate(),
       title: inputs.title.value,
       description: inputs.description.value,
-      date: getCurrentDate(),
+      link: inputs.link.value,
+      linkTitle: inputs.linkTitle.value,
     };
 
     const titleIsValid = notifyData.title.trim().length > 0;
     const descriptionIsValid = notifyData.description.trim().length > 0;
-
-    if (!titleIsValid || !descriptionIsValid) {
+    let linkIsValid = true;
+    if (notifyData.linkTitle.trim().length > 0) {
+      if (notifyData.link.trim().length < 1) {
+        linkIsValid = false;
+      }
+    }
+    if (!titleIsValid || !descriptionIsValid || !linkIsValid) {
       setInputs((curInputs) => {
         return {
           title: { value: curInputs.title.value, isValid: titleIsValid },
           description: {
             value: curInputs.description.value,
             isValid: descriptionIsValid,
+          },
+          link: {
+            value: curInputs.link.value,
+            isValid: linkIsValid,
+          },
+          linkTitle: {
+            value: curInputs.linkTitle.value,
+            isValid: linkIsValid,
           },
         };
       });
@@ -64,7 +87,7 @@ const NotificationForm = ({ onCancel, onSubmit }) => {
     <View>
       <Text style={styles.title}>Add Notification</Text>
       <Input
-        label="Title"
+        label="Title *"
         invalid={!inputs.title.isValid}
         textInputConfig={{
           keyboardType: "default",
@@ -75,16 +98,37 @@ const NotificationForm = ({ onCancel, onSubmit }) => {
       />
 
       <Input
-        label="Description"
+        label="Description *"
         invalid={!inputs.description.isValid}
         textInputConfig={{
           multiline: true,
           autoCorrect: false,
-          numberOfLines: 15,
+          numberOfLines: 5,
           onChangeText: inputChangeHandler.bind(this, "description"),
           value: inputs.description.value,
         }}
       />
+      <Input
+        label="Link Title"
+        invalid={!inputs.linkTitle.isValid}
+        textInputConfig={{
+          keyboardType: "default",
+          autoCorrect: false,
+          onChangeText: inputChangeHandler.bind(this, "linkTitle"),
+          value: inputs.linkTitle.value,
+        }}
+      />
+      <Input
+        label="External Link"
+        invalid={!inputs.link.isValid}
+        textInputConfig={{
+          keyboardType: "default",
+          autoCorrect: false,
+          onChangeText: inputChangeHandler.bind(this, "link"),
+          value: inputs.link.value,
+        }}
+      />
+
       {formIsValid && (
         <Text style={styles.errorText}>
           Invalid Input Values - Please check the entered data
@@ -104,7 +148,7 @@ const NotificationForm = ({ onCancel, onSubmit }) => {
 
 const styles = StyleSheet.create({
   title: {
-    marginVertical: 24,
+    marginVertical: 5,
     fontSize: 24,
     fontWeight: "bold",
     color: Colors.navColor,

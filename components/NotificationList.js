@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     padding: 10,
-    maxHeight: 350,
+    maxHeight: 400,
     backgroundColor: Colors.white,
   },
   userArea: {
@@ -40,11 +40,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 5,
-  },
-  adminMenu: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    paddingVertical: 10,
   },
 });
 

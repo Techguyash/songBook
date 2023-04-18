@@ -62,8 +62,9 @@ const LoginScreen = () => {
     <View style={styles.rootLayout}>
       <View style={styles.headerLayout}>
         <Image
-          source={require("../assets/images/adminLogo.png")}
+          source={require("../assets/icon.png")}
           alt="user-logo"
+          style={styles.imageLayout}
         />
         <Text style={styles.title}>Admin</Text>
       </View>
@@ -135,6 +136,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 10,
+  },
+  imageLayout: {
+    height: 90,
+    width: 80,
   },
   title: {
     fontSize: 24,

@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import reducer from "../reducer/SongReducer";
 import { fetchAllDataFromFirebase } from "../api/songs-http";
-import { Toast } from "react-native-toast-message/lib/src/Toast";
+import * as SplashScreeen from "expo-splash-screen";
 
 const INITIAL_STATE = {
   isLoading: false,
@@ -12,7 +12,7 @@ const INITIAL_STATE = {
   authenticated: false,
   allSongList: [],
   filteredList: [],
-  textFontSize: 15,
+  textFontSize: 20,
   getAllSongsFromFirebase: () => {},
   toggleFavouritesList: () => {},
   filterSongByTitleHandler: () => {},
@@ -139,8 +139,16 @@ const AppCtxProvider = ({ children }) => {
     });
   };
 
+  const appReadyState = async () => {
+    SplashScreeen.preventAutoHideAsync();
+    console.log("App contest : 144 : loading started");
+    await getAllSongsFromFirebase();
+    console.log("App contest : 146 : loading complete");
+    await SplashScreeen.hideAsync();
+  };
+
   useEffect(() => {
-    getAllSongsFromFirebase();
+    appReadyState();
   }, []);
 
   const values = {

@@ -17,6 +17,8 @@ export const fetchAllNotification = async () => {
       title: response.data[key].title,
       description: response.data[key].description,
       date: response.data[key].date.toString(),
+      link: response.data[key].link,
+      linkTitle: response.data[key].linkTitle,
     };
     tempNotify.push(notifyData);
   }

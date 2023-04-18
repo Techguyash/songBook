@@ -18,6 +18,7 @@ import ManageSongsScreen from "./screens/ManageSongsScreen";
 import ManageNotificationScreen from "./screens/ManageNotificationScreen";
 import NotifyCtxProvider from "./store/NotifyContext";
 import Toast from "react-native-toast-message";
+import AboutUsScreen from "./screens/AboutUsScreen";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -151,6 +152,15 @@ export default function App() {
                 component={ManageNotificationScreen}
                 options={{
                   presentation: "modal",
+                }}
+              />
+
+              <Stack.Screen
+                name="aboutUsScreen"
+                component={AboutUsScreen}
+                options={{
+                  headerStyle: { backgroundColor: Colors.background },
+                  title: "About Us",
                 }}
               />
             </Stack.Navigator>

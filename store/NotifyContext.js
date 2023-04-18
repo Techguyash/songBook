@@ -2,7 +2,6 @@ import { createContext, useEffect, useReducer } from "react";
 import { fetchAllNotification } from "../api/notification-http";
 import reducer from "../reducer/NotifyReducer";
 const INITIAL_STATE = {
-  isLoading: false,
   isError: false,
   notifications: [],
   addNotify: (data) => {},

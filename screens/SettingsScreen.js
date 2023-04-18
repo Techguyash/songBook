@@ -15,7 +15,9 @@ const SettingsScreen = ({ navigation }) => {
   const navigateLoginScreenHandler = () => {
     navigator.navigate("loginScreen");
   };
-
+  const navigateAboutScreenHandler = () => {
+    navigator.navigate("aboutUsScreen");
+  };
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
@@ -45,7 +47,11 @@ const SettingsScreen = ({ navigation }) => {
           value={"" + textFontSize}
         />
 
-        <MenuItem icon="timer-outline" title="About us" onPress={() => {}} />
+        <MenuItem
+          icon="timer-outline"
+          title="About us"
+          onPress={navigateAboutScreenHandler}
+        />
       </View>
       {authenticated && (
         <Pressable onPress={userLogoutHandler}>

@@ -51,6 +51,8 @@ const NotificationScreen = ({ navigation }) => {
               date={notify.item.date}
               title={notify.item.title}
               description={notify.item.description}
+              link={notify.item.link}
+              linkTitle={notify.item.linkTitle}
             />
           );
         }}
