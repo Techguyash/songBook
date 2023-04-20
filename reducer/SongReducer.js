@@ -18,7 +18,7 @@ const SongReducer = (state, action) => {
 
       return {
         ...state,
-        allSongList: updatedAllSongList, // error in this line code
+        allSongList: updatedAllSongList,
       };
 
     case "DELETE_SONG":
@@ -46,6 +46,7 @@ const SongReducer = (state, action) => {
       return {
         ...state,
         allSongList: action.payload,
+        filteredData: action.payload,
       };
 
     case "TOGGLE_FAVOURITE":
@@ -69,13 +70,6 @@ const SongReducer = (state, action) => {
       return {
         ...state,
         textFontSize: action.payload,
-      };
-
-    case "API_ERROR":
-      return {
-        ...state,
-        isLoading: false,
-        isError: true,
       };
 
     default:

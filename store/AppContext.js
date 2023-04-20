@@ -9,10 +9,10 @@ import * as SplashScreeen from "expo-splash-screen";
 const INITIAL_STATE = {
   isLoading: false,
   isError: false,
-  authenticated: false,
+  authenticated: true,
   allSongList: [],
   filteredList: [],
-  textFontSize: 20,
+  textFontSize: 18,
   getAllSongsFromFirebase: () => {},
   toggleFavouritesList: () => {},
   filterSongByTitleHandler: () => {},
@@ -74,8 +74,6 @@ const AppCtxProvider = ({ children }) => {
       const data = await fetchAllDataFromFirebase();
 
       const favourites = await getFavouritesFromStorage();
-      // for local songs
-      // const mappedSongs = mapFavouriteObjects(favourites, Songs);
 
       const mappedSongs = await mapFavouriteObjects(favourites, data);
       dispatch({ type: "SET_API_DATA", payload: mappedSongs });
@@ -104,11 +102,15 @@ const AppCtxProvider = ({ children }) => {
   };
 
   const filterSongByTitleHandler = (enteredText) => {
-    const duplicateList = [...state.allSongList];
-    const filteredSongs = duplicateList.filter((song) => {
-      return song.title.toLowerCase().includes(enteredText);
-    });
-    dispatch({ type: "SET_FAVOURITE_LIST", payload: filteredSongs });
+    if (enteredText) {
+      const duplicateList = [...state.allSongList];
+      const filteredSongs = duplicateList.filter((song) => {
+        return song.title.indexOf(enteredText) > -1;
+      });
+      dispatch({ type: "SET_FAVOURITE_LIST", payload: filteredSongs });
+    } else {
+      dispatch({ type: "SET_FAVOURITE_LIST", payload: state.allSongList });
+    }
   };
 
   const userLoginHandler = () => {
@@ -132,8 +134,8 @@ const AppCtxProvider = ({ children }) => {
     dispatch({ type: "DELETE_SONG", payload: number });
   };
 
-  const updateSong = async (number, songData) => {
-    await dispatch({
+  const updateSong = (number, songData) => {
+    dispatch({
       type: "UPDATE_SONG",
       payload: { number: number, data: songData },
     });
@@ -141,9 +143,7 @@ const AppCtxProvider = ({ children }) => {
 
   const appReadyState = async () => {
     SplashScreeen.preventAutoHideAsync();
-    console.log("App contest : 144 : loading started");
     await getAllSongsFromFirebase();
-    console.log("App contest : 146 : loading complete");
     await SplashScreeen.hideAsync();
   };
 

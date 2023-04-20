@@ -1,18 +1,11 @@
 import { useContext, useEffect, useLayoutEffect, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  ActivityIndicator,
-  Text,
-} from "react-native";
+import { View, StyleSheet, FlatList, Text } from "react-native";
 import SongList from "../components/SongList";
 import Colors from "../constants/Colors";
 import { AppContext } from "../store/AppContext";
 
 import { Ionicons } from "@expo/vector-icons";
 import SearchBar from "../components/SearchBar";
-import LoadingOverLay from "../UI/LoadingOverLay";
 
 const HomeScreen = ({ navigation }) => {
   const {
@@ -24,7 +17,6 @@ const HomeScreen = ({ navigation }) => {
   } = useContext(AppContext);
 
   const [showSearchBar, setShowSearchBar] = useState(true);
-  const [isLoading, setisLoading] = useState(true);
 
   const enableSearchBar = () => {
     setShowSearchBar(false);
@@ -32,10 +24,15 @@ const HomeScreen = ({ navigation }) => {
 
   const disableSearchBar = () => {
     setShowSearchBar(true);
+    filterSongByTitleHandler(null);
   };
 
   const filterSongsList = (enteredText) => {
-    filterSongByTitleHandler(enteredText);
+    if (enteredText) {
+      filterSongByTitleHandler(enteredText);
+    } else {
+      filterSongByTitleHandler(null);
+    }
   };
 
   useLayoutEffect(() => {
@@ -74,14 +71,8 @@ const HomeScreen = ({ navigation }) => {
   }, [authenticated, showSearchBar]);
 
   useEffect(() => {
-    setisLoading(true);
     getAllSongsFromFirebase();
-    setisLoading(false);
-  }, [allSongList]);
-
-  if (isLoading) {
-    return <LoadingOverLay />;
-  }
+  }, []);
 
   return (
     <>

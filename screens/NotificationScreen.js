@@ -1,5 +1,5 @@
-import { useContext, useEffect, useLayoutEffect, useState } from "react";
-import { FlatList, ScrollView, StyleSheet, View } from "react-native";
+import { useContext, useLayoutEffect } from "react";
+import { FlatList, StyleSheet, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import NotificationList from "../components/NotificationList";

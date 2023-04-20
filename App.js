@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -159,8 +159,8 @@ export default function App() {
                 name="aboutUsScreen"
                 component={AboutUsScreen}
                 options={{
-                  headerStyle: { backgroundColor: Colors.background },
-                  title: "About Us",
+                  title: "",
+                  headerShown: false,
                 }}
               />
             </Stack.Navigator>

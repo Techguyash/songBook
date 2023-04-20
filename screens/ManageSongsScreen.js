@@ -11,12 +11,19 @@ import { AppContext } from "../store/AppContext";
 import IconButton from "../UI/IconButton";
 
 const ManageSongsScreen = ({ route, navigation }) => {
-  const { updateSong, deleteSong, addSong, allSongList } =
-    useContext(AppContext);
+  const {
+    updateSong,
+    deleteSong,
+    addSong,
+    getAllSongsFromFirebase,
+    allSongList,
+  } = useContext(AppContext);
 
   const editedSongNumber = route.params?.number;
   const editedSongId = route.params?.id;
   const isEditing = !!editedSongNumber;
+
+  console.log(`editedSongId 26: ${editedSongId}`);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -28,9 +35,10 @@ const ManageSongsScreen = ({ route, navigation }) => {
     return song.number === editedSongNumber;
   });
 
-  const deleteSongHandler = () => {
+  const deleteSongHandler = async () => {
+    await deleteSongInFirebase(editedSongId);
     deleteSong(editedSongNumber);
-    deleteSongInFirebase(editedSongId);
+    await getAllSongsFromFirebase();
     navigation.goBack();
   };
 
@@ -39,12 +47,14 @@ const ManageSongsScreen = ({ route, navigation }) => {
   };
 
   const confirmHandler = async (songData) => {
+    console.log("line 48", songData.number, " :", songData.title);
     if (isEditing) {
-      await updateSong(editedSongNumber, songData);
+      updateSong(editedSongNumber, songData);
       await updateSongInFirebase(editedSongId, songData);
     } else {
       addSong(songData);
       await createSongInFirebase(songData);
+      await getAllSongsFromFirebase();
     }
 
     navigation.goBack();
