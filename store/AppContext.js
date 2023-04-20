@@ -9,7 +9,7 @@ import * as SplashScreeen from "expo-splash-screen";
 const INITIAL_STATE = {
   isLoading: false,
   isError: false,
-  authenticated: true,
+  authenticated: false,
   allSongList: [],
   filteredList: [],
   textFontSize: 18,
