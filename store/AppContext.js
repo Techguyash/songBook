@@ -76,8 +76,11 @@ const AppCtxProvider = ({ children }) => {
       const favourites = await getFavouritesFromStorage();
 
       const mappedSongs = await mapFavouriteObjects(favourites, data);
-      dispatch({ type: "SET_API_DATA", payload: mappedSongs });
-      dispatch({ type: "SET_FAVOURITE_LIST", payload: mappedSongs });
+
+      const sortedValues = mappedSongs.sort((a, b) => a.number - b.number);
+
+      dispatch({ type: "SET_API_DATA", payload: sortedValues });
+      dispatch({ type: "SET_FAVOURITE_LIST", payload: sortedValues });
     } catch (err) {
       console.log(err);
     }
