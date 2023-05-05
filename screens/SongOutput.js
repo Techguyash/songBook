@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   textContent: {
     marginVertical: 5,
-    textAlign: "center",
+    textAlign: "left",
     marginBottom: 10,
     paddingBottom: 15,
   },

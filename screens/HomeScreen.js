@@ -89,9 +89,15 @@ const HomeScreen = ({ navigation }) => {
             filterSongsList={filterSongsList}
           />
         )}
-        <View style={{ paddingTop: 10, paddingHorizontal: 3 }}>
+        <View style={[styles.base]}>
           <FlatList
             data={showSearchBar ? allSongList : filteredList}
+            centerContent
+            ListFooterComponent={
+              <View style={{ width: 10, padding: 20 }}>
+                <Text> </Text>
+              </View>
+            }
             renderItem={(song) => {
               return (
                 <SongList
@@ -112,6 +118,10 @@ const HomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  base: {
+    paddingTop: 10,
+    paddingHorizontal: 3,
+  },
   headerContainer: {
     flexDirection: "row",
     alignItems: "center",
