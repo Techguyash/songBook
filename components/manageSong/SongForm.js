@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  KeyboardAvoidingView,
+  ScrollView,
+} from "react-native";
 import React, { useState } from "react";
 import Input from "./Input";
 import Colors from "../../constants/Colors";
@@ -57,52 +63,56 @@ const SongForm = ({ onCancel, onSubmit, submitButtonLabel, defaultValues }) => {
     !inputs.number.isValid || !inputs.title.isValid || !inputs.lyrics.isValid;
 
   return (
-    <View>
-      <Text style={styles.title}>Add New Song</Text>
-      <Input
-        label="Number"
-        invalid={!inputs.number.isValid}
-        textInputConfig={{
-          keyboardType: "numeric",
-          autoCorrect: false,
-          onChangeText: inputChangeHandler.bind(this, "number"),
-          value: inputs.number.value,
-        }}
-      />
-      <Input
-        label="Title"
-        invalid={!inputs.title.isValid}
-        textInputConfig={{
-          autoCorrect: false,
-          onChangeText: inputChangeHandler.bind(this, "title"),
-          value: inputs.title.value,
-        }}
-      />
-      <Input
-        label="Lyrics"
-        invalid={!inputs.lyrics.isValid}
-        textInputConfig={{
-          multiline: true,
-          autoCorrect: false,
-          numberOfLines: 15,
-          onChangeText: inputChangeHandler.bind(this, "lyrics"),
-          value: inputs.lyrics.value,
-        }}
-      />
-      {formIsValid && (
-        <Text style={styles.errorText}>
-          Invalid Input Values - Please check the entered data
-        </Text>
-      )}
-      <View style={styles.buttons}>
-        <Button style={styles.button} mode="flat" onPress={onCancel}>
-          Cancel
-        </Button>
-        <Button style={styles.button} onPress={submitHandler}>
-          {submitButtonLabel}
-        </Button>
-      </View>
-    </View>
+    <ScrollView>
+      <KeyboardAvoidingView behavior="position">
+        <View>
+          <Text style={styles.title}>Add New Song</Text>
+          <Input
+            label="Number"
+            invalid={!inputs.number.isValid}
+            textInputConfig={{
+              keyboardType: "numeric",
+              autoCorrect: false,
+              onChangeText: inputChangeHandler.bind(this, "number"),
+              value: inputs.number.value,
+            }}
+          />
+          <Input
+            label="Title"
+            invalid={!inputs.title.isValid}
+            textInputConfig={{
+              autoCorrect: false,
+              onChangeText: inputChangeHandler.bind(this, "title"),
+              value: inputs.title.value,
+            }}
+          />
+          <Input
+            label="Lyrics"
+            invalid={!inputs.lyrics.isValid}
+            textInputConfig={{
+              multiline: true,
+              autoCorrect: false,
+              numberOfLines: 15,
+              onChangeText: inputChangeHandler.bind(this, "lyrics"),
+              value: inputs.lyrics.value,
+            }}
+          />
+          {formIsValid && (
+            <Text style={styles.errorText}>
+              Invalid Input Values - Please check the entered data
+            </Text>
+          )}
+          <View style={styles.buttons}>
+            <Button style={styles.button} mode="flat" onPress={onCancel}>
+              Cancel
+            </Button>
+            <Button style={styles.button} onPress={submitHandler}>
+              {submitButtonLabel}
+            </Button>
+          </View>
+        </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 

@@ -43,7 +43,7 @@ function BottomNavigation() {
         name="HomeScreen"
         component={HomeScreen}
         options={{
-          title: "Song Book",
+          title: "Paramanin Keethangal",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
               name={focused ? "md-home-sharp" : "home-outline"}
