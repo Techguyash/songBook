@@ -46,7 +46,13 @@ const SongReducer = (state, action) => {
       return {
         ...state,
         allSongList: action.payload,
-        filteredData: action.payload,
+        filteredList: action.payload,
+      };
+
+    case "SET_FILTERED_DATA":
+      return {
+        ...state,
+        filteredList: state.filteredList,
       };
 
     case "TOGGLE_FAVOURITE":
@@ -58,7 +64,7 @@ const SongReducer = (state, action) => {
         }
         return song;
       });
-      return { ...state, allSongList: songs };
+      return { ...state, allSongList: songs, filteredList: songs };
 
     case "SET_FAVOURITE_LIST":
       return {
